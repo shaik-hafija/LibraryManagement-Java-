@@ -1,0 +1,77 @@
+import java.util.*;
+
+class Book {
+    String title;
+    String author;
+    int year;
+
+    Book(String title, String author, int year) {
+        this.title = title;
+        this.author = author;
+        this.year = year;
+    }
+
+    void displayBook() {
+        System.out.println("Title: " + title + " | Author: " + author + " | Year: " + year);
+    }
+}
+
+public class LibraryManagement {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Book> books = new ArrayList<>();
+        int choice;
+
+        while (true) {
+            System.out.println("\n📚 Library Management System");
+            System.out.println("1. Add Book");
+            System.out.println("2. View All Books");
+            System.out.println("3. Search Book by Title");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice: ");
+            choice = sc.nextInt();
+            sc.nextLine(); // consume newline
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter title: ");
+                    String title = sc.nextLine();
+                    System.out.print("Enter author: ");
+                    String author = sc.nextLine();
+                    System.out.print("Enter year: ");
+                    int year = sc.nextInt();
+                    books.add(new Book(title, author, year));
+                    System.out.println("✅ Book added successfully!");
+                    break;
+
+                case 2:
+                    System.out.println("\n📖 All Books:");
+                    for (Book b : books)
+                        b.displayBook();
+                    break;
+
+                case 3:
+                    System.out.print("Enter title to search: ");
+                    String searchTitle = sc.nextLine();
+                    boolean found = false;
+                    for (Book b : books) {
+                        if (b.title.equalsIgnoreCase(searchTitle)) {
+                            b.displayBook();
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found)
+                        System.out.println("❌ Book not found!");
+                    break;
+
+                case 4:
+                    System.out.println("👋 Exiting... Thank you!");
+                    System.exit(0);
+
+                default:
+                    System.out.println("Invalid choice! Try again.");
+            }
+        }
+    }
+}
